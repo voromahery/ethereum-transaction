@@ -1,0 +1,25 @@
+{
+  "name": "transaction-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.8.0",
+    "@chakra-ui/react": "^1.1.5",
+    "@emotion/core": "^11.0.0",
+    "@emotion/styled": "^11.3.0",
+    "date-fns": "^2.16.1",
+    "emotion-theming": "^11.0.0",
+    "metaweather-ts": "0.0.6",
+    "parcel-bundler": "^1.12.5",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "save-dev": "0.0.1-security"
+  },
+  "author": "",
+  "license": "ISC"
+}
