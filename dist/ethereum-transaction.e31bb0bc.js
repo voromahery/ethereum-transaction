@@ -29589,18 +29589,26 @@ const ContextProvider = ({
 }) => {
   const api_key = "AFNQ2SBGMZCYUKU7BNQR2FJWFPK88GEFHA";
   const dataUrl = `http://api.etherscan.io/api?module=account&action=txlist&address=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae&startblock=0&endblock=99999999&sort=asc&apikey=${api_key}`;
+  const [transactionData, setTransactionData] = (0, _react.useState)([]);
+
+  if (transactionData.length > 10) {
+    transactionData.length = 10;
+  }
 
   const fetchData = async () => {
     const response = await fetch(dataUrl);
     const data = await response.json();
-    console.log(data);
+    setTransactionData(data.result);
   };
 
   (0, _react.useEffect)(() => {
     fetchData();
   }, []);
+  console.log(transactionData);
   return /*#__PURE__*/_react.default.createElement(Context.Provider, {
-    value: ''
+    value: {
+      transactionData
+    }
   }, children);
 };
 
@@ -29625,7 +29633,40 @@ const FormInput = () => {
 
 var _default = FormInput;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"components/TransactionTable.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _GlobalContext = require("../GlobalContext");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const TransactionTable = () => {
+  const {
+    transactionData
+  } = (0, _react.useContext)(_GlobalContext.Context);
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement("h3", null, "Transaction")), /*#__PURE__*/_react.default.createElement("div", null, transactionData.map(item => /*#__PURE__*/_react.default.createElement("div", {
+    key: item.timeStamp
+  }, /*#__PURE__*/_react.default.createElement("span", null, "Tx"), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("a", {
+    href: `https://etherscan.io/tx/${item.blockHash}`
+  }, item.blockHash)), /*#__PURE__*/_react.default.createElement("time", null, item.timeStamp)), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "From:", /*#__PURE__*/_react.default.createElement("a", {
+    href: `https://etherscan.io/address/${item.from}`
+  }, item.from)), /*#__PURE__*/_react.default.createElement("p", null, "To:", /*#__PURE__*/_react.default.createElement("a", {
+    href: `https://etherscan.io/address/${item.to}`
+  }, item.to))), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("span", null, item.value), " ", /*#__PURE__*/_react.default.createElement("span", null, "Eth"))))));
+};
+
+var _default = TransactionTable;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../GlobalContext":"GlobalContext.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29637,15 +29678,17 @@ var _react = _interopRequireDefault(require("react"));
 
 var _FormInput = _interopRequireDefault(require("./components/FormInput"));
 
+var _TransactionTable = _interopRequireDefault(require("./components/TransactionTable"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const App = () => {
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_FormInput.default, null));
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_FormInput.default, null), /*#__PURE__*/_react.default.createElement(_TransactionTable.default, null));
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./components/FormInput":"components/FormInput.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./components/FormInput":"components/FormInput.js","./components/TransactionTable":"components/TransactionTable.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -29687,7 +29730,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36893" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34389" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
