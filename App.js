@@ -1,9 +1,10 @@
 import React from 'react'
+import FormInput from './components/FormInput'
 
-function App() {
+const App = () => {
   return (
     <div>
-      <h1>Hello World!</h1>
+      <FormInput />
     </div>
   )
 }
