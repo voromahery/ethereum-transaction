@@ -1,23 +1,33 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Context } from '../GlobalContext'
 
 const FormInput = () => {
-  const { wallet, setWallet } = useContext(Context)
-  const getWallet = (event) => {
-    const form = event.target
-    console.log(form)
-    event.preventDefault()
+  const { wallet, setWallet, dataUrl } = useContext(Context)
+  const getWallet = (e) => {
+    e.preventDefault()
+    const form = e.target
+    setWallet(form.value)
+    console.log(wallet, 'FORM')
   }
 
+  const searchBlock = () => {
+    // https://etherscan.io/block/
+  }
   return (
-    <form>
-      <input
-        type='text'
-        onChange={(event) => event.target.value}
-        value={wallet}
-      />
-      <button onSubmit={getWallet}>Search</button>
-    </form>
+    <div>
+      <form onSubmit={getWallet}>
+        <input
+          type='text'
+          placeholder='Search a wallet'
+          onChange={(e) => e.target.value}
+        />
+        <button>Search</button>
+      </form>
+      {/* <form >
+        <input type='text' placeholder="Search" onChange={(e) => e.target.value} />
+        <button>Search</button>
+      </form> */}
+    </div>
   )
 }
 

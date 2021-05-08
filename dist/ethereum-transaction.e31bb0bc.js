@@ -29588,9 +29588,10 @@ const ContextProvider = ({
   children
 }) => {
   const [transactionData, setTransactionData] = (0, _react.useState)([]);
-  const [wallet, setWallet] = (0, _react.useState)('0xde0b295669a9fd93d5f28d9ec85e40f4cb697');
+  const [isLoading, setIsLoading] = (0, _react.useState)(true);
+  const [wallet, setWallet] = (0, _react.useState)('0x01D9Eb6f8bDc5DCB17Fc447aBB41e1a69F2CF292');
   const api_key = "AFNQ2SBGMZCYUKU7BNQR2FJWFPK88GEFHA";
-  const dataUrl = `http://api.etherscan.io/api?module=account&action=txlist&address=${wallet}bae&startblock=0&endblock=99999999&sort=asc&apikey=${api_key}`;
+  const dataUrl = `http://api.etherscan.io/api?module=account&action=txlist&address=${wallet}&startblock=0&endblock=99999999&sort=asc&apikey=${api_key}`;
 
   if (transactionData.length > 10) {
     transactionData.length = 10;
@@ -29600,17 +29601,20 @@ const ContextProvider = ({
     const response = await fetch(dataUrl);
     const data = await response.json();
     setTransactionData(data.result);
+    setIsLoading(false);
   };
 
   (0, _react.useEffect)(() => {
     fetchData();
-  }, [wallet]);
+  }, []);
   console.log(transactionData);
   return /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
       transactionData,
       wallet,
-      setWallet
+      dataUrl,
+      setWallet,
+      isLoading
     }
   }, children);
 };
@@ -29635,22 +29639,27 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 const FormInput = () => {
   const {
     wallet,
-    setWallet
+    setWallet,
+    dataUrl
   } = (0, _react.useContext)(_GlobalContext.Context);
 
-  const getWallet = event => {
-    const form = event.target;
-    console.log(form);
-    event.preventDefault();
+  const getWallet = e => {
+    e.preventDefault();
+    const form = e.target;
+    setWallet(form.value);
+    console.log(wallet, 'FORM');
   };
 
-  return /*#__PURE__*/_react.default.createElement("form", null, /*#__PURE__*/_react.default.createElement("input", {
-    type: "text",
-    onChange: event => event.target.value,
-    value: wallet
-  }), /*#__PURE__*/_react.default.createElement("button", {
+  const searchBlock = () => {// https://etherscan.io/block/
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
     onSubmit: getWallet
-  }, "Search"));
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    placeholder: "Search a wallet",
+    onChange: e => e.target.value
+  }), /*#__PURE__*/_react.default.createElement("button", null, "Search")));
 };
 
 var _default = FormInput;
@@ -29673,17 +29682,22 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 const TransactionTable = () => {
   const {
-    transactionData
+    transactionData,
+    isLoading
   } = (0, _react.useContext)(_GlobalContext.Context);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement("h3", null, "Transaction")), /*#__PURE__*/_react.default.createElement("div", null, transactionData.map(item => /*#__PURE__*/_react.default.createElement("div", {
-    key: item.timeStamp
-  }, /*#__PURE__*/_react.default.createElement("span", null, "Tx"), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("a", {
-    href: `https://etherscan.io/tx/${item.blockHash}`
-  }, item.blockHash)), /*#__PURE__*/_react.default.createElement("time", null, item.timeStamp)), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "From:", /*#__PURE__*/_react.default.createElement("a", {
-    href: `https://etherscan.io/address/${item.from}`
-  }, item.from)), /*#__PURE__*/_react.default.createElement("p", null, "To:", /*#__PURE__*/_react.default.createElement("a", {
-    href: `https://etherscan.io/address/${item.to}`
-  }, item.to))), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("span", null, item.value), " ", /*#__PURE__*/_react.default.createElement("span", null, "Eth"))))));
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement("h3", null, "Transaction")), /*#__PURE__*/_react.default.createElement("div", null, isLoading ? /*#__PURE__*/_react.default.createElement("h1", null, "Loading...") : // transactionData > 0 &&
+  transactionData.map((item, index) => {
+    const price = item.value * 0.000000000000000001;
+    return /*#__PURE__*/_react.default.createElement("div", {
+      key: item.timeStamp + index
+    }, /*#__PURE__*/_react.default.createElement("span", null, "Tx"), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("a", {
+      href: `https://etherscan.io/tx/${item.blockHash}`
+    }, item.hash)), /*#__PURE__*/_react.default.createElement("time", null, item.timeStamp)), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("p", null, "From:", /*#__PURE__*/_react.default.createElement("a", {
+      href: `https://etherscan.io/address/${item.from}`
+    }, item.from)), /*#__PURE__*/_react.default.createElement("p", null, "To:", /*#__PURE__*/_react.default.createElement("a", {
+      href: `https://etherscan.io/address/${item.to}`
+    }, item.to))), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("span", null, price), " ", /*#__PURE__*/_react.default.createElement("span", null, "Eth")));
+  })));
 };
 
 var _default = TransactionTable;
@@ -29752,7 +29766,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34389" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39213" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
