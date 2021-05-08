@@ -29587,34 +29587,64 @@ exports.Context = Context;
 const ContextProvider = ({
   children
 }) => {
+  const START_BLOCK = 0;
   const [transactionData, setTransactionData] = (0, _react.useState)([]);
-  const [isLoading, setIsLoading] = (0, _react.useState)(true);
+  const [isLoading, setIsLoading] = (0, _react.useState)(false);
   const [wallet, setWallet] = (0, _react.useState)('0x01D9Eb6f8bDc5DCB17Fc447aBB41e1a69F2CF292');
-  const api_key = "AFNQ2SBGMZCYUKU7BNQR2FJWFPK88GEFHA";
-  const dataUrl = `http://api.etherscan.io/api?module=account&action=txlist&address=${wallet}&startblock=0&endblock=99999999&sort=asc&apikey=${api_key}`;
+  const [startBlock, setStartBlock] = (0, _react.useState)(0);
+  const api_key = "AFNQ2SBGMZCYUKU7BNQR2FJWFPK88GEFHA"; // const dataUrl = `http://api.etherscan.io/api?module=account&action=txlist&address=${wallet}&startblock=0&endblock=99999999&sort=asc&apikey=${api_key}`
+
+  const currentBlockUrl = `https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=${api_key}`;
 
   if (transactionData.length > 10) {
     transactionData.length = 10;
   }
 
-  const fetchData = async () => {
-    const response = await fetch(dataUrl);
-    const data = await response.json();
-    setTransactionData(data.result);
-    setIsLoading(false);
+  const getTransactionsUrl = (address, startBlock, endBlock, api_key) => {
+    const dataUrl = `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=${startBlock}&endblock=${endBlock}&sort=asc&apikey=${api_key}`;
+    return dataUrl;
   };
 
-  (0, _react.useEffect)(() => {
-    fetchData();
-  }, []);
+  const fetchTransactions = async (address, startBlock, endBlock) => {
+    const response = await fetch(getTransactionsUrl(address, startBlock, endBlock, api_key));
+    const data = await response.json();
+    return data.result;
+  };
+
+  const fetchCurrentBlock = async () => {
+    const response = await fetch(currentBlockUrl);
+    const data = await response.json();
+    return data;
+  };
+
+  const queryTransactions = async e => {
+    setIsLoading(true);
+    const currentBlock = await fetchCurrentBlock();
+    const transactions = await fetchTransactions(wallet, START_BLOCK, currentBlock);
+    setTransactionData(transactions);
+    setIsLoading(false); // debugger
+  }; // useEffect(async () => {
+  //   const currentBlock = await fetchCurrentBlock()
+  //   const transactions = await fetchTransactions(
+  //     wallet,
+  //     START_BLOCK,
+  //     currentBlock
+  //   )
+  //   setTransactionData(transactions)
+  //   setIsLoading(false)
+  // }, [])
+
+
   console.log(transactionData);
   return /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
       transactionData,
       wallet,
-      dataUrl,
       setWallet,
-      isLoading
+      startBlock,
+      setStartBlock,
+      isLoading,
+      queryTransactions
     }
   }, children);
 };
@@ -29640,26 +29670,32 @@ const FormInput = () => {
   const {
     wallet,
     setWallet,
-    dataUrl
+    startBlock,
+    setStartBlock,
+    queryTransactions
   } = (0, _react.useContext)(_GlobalContext.Context);
 
   const getWallet = e => {
     e.preventDefault();
     const form = e.target;
-    setWallet(form.value);
-    console.log(wallet, 'FORM');
-  };
+  }; // const convertHexToDecimal = () => {
+  //   parseInt(hexValue, decimal)
+  // }
 
-  const searchBlock = () => {// https://etherscan.io/block/
-  };
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
-    onSubmit: getWallet
-  }, /*#__PURE__*/_react.default.createElement("input", {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("label", null, "Address"), /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
+    value: wallet,
     placeholder: "Search a wallet",
-    onChange: e => e.target.value
-  }), /*#__PURE__*/_react.default.createElement("button", null, "Search")));
+    onChange: e => setWallet(e.target.value)
+  }), /*#__PURE__*/_react.default.createElement("label", null, "Block"), /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    value: startBlock,
+    placeholder: "Search",
+    onChange: e => setStartBlock(e.target.value)
+  }), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: queryTransactions
+  }, "Get transactions"));
 };
 
 var _default = FormInput;
@@ -29676,6 +29712,10 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _GlobalContext = require("../GlobalContext");
 
+var _FormInput = _interopRequireDefault(require("./FormInput"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -29685,7 +29725,7 @@ const TransactionTable = () => {
     transactionData,
     isLoading
   } = (0, _react.useContext)(_GlobalContext.Context);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement("h3", null, "Transaction")), /*#__PURE__*/_react.default.createElement("div", null, isLoading ? /*#__PURE__*/_react.default.createElement("h1", null, "Loading...") : // transactionData > 0 &&
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_FormInput.default, null), /*#__PURE__*/_react.default.createElement("div", null, isLoading ? /*#__PURE__*/_react.default.createElement("h1", null, "Loading...") : // transactionData > 0 &&
   transactionData.map((item, index) => {
     const price = item.value * 0.000000000000000001;
     return /*#__PURE__*/_react.default.createElement("div", {
@@ -29702,7 +29742,7 @@ const TransactionTable = () => {
 
 var _default = TransactionTable;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../GlobalContext":"GlobalContext.js"}],"App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../GlobalContext":"GlobalContext.js","./FormInput":"components/FormInput.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29712,19 +29752,17 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _FormInput = _interopRequireDefault(require("./components/FormInput"));
-
 var _TransactionTable = _interopRequireDefault(require("./components/TransactionTable"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const App = () => {
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_FormInput.default, null), /*#__PURE__*/_react.default.createElement(_TransactionTable.default, null));
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_TransactionTable.default, null));
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./components/FormInput":"components/FormInput.js","./components/TransactionTable":"components/TransactionTable.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./components/TransactionTable":"components/TransactionTable.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));

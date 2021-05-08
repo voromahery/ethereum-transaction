@@ -1,13 +1,12 @@
 import React, { useContext } from 'react'
 import { Context } from '../GlobalContext'
+import FormInput from './FormInput'
 
 const TransactionTable = () => {
   const { transactionData, isLoading } = useContext(Context)
   return (
     <div>
-      <header>
-        <h3>Transaction</h3>
-      </header>
+      <FormInput />
       <div>
         {isLoading ? (
           <h1>Loading...</h1>

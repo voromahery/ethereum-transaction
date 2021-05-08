@@ -2,31 +2,41 @@ import React, { useContext, useState } from 'react'
 import { Context } from '../GlobalContext'
 
 const FormInput = () => {
-  const { wallet, setWallet, dataUrl } = useContext(Context)
+  const {
+    wallet,
+    setWallet,
+    startBlock,
+    setStartBlock,
+    queryTransactions,
+  } = useContext(Context)
+
   const getWallet = (e) => {
     e.preventDefault()
     const form = e.target
-    setWallet(form.value)
-    console.log(wallet, 'FORM')
   }
 
-  const searchBlock = () => {
-    // https://etherscan.io/block/
-  }
+  // const convertHexToDecimal = () => {
+  //   parseInt(hexValue, decimal)
+  // }
+
   return (
     <div>
-      <form onSubmit={getWallet}>
-        <input
-          type='text'
-          placeholder='Search a wallet'
-          onChange={(e) => e.target.value}
-        />
-        <button>Search</button>
-      </form>
-      {/* <form >
-        <input type='text' placeholder="Search" onChange={(e) => e.target.value} />
-        <button>Search</button>
-      </form> */}
+      <label>Address</label>
+      <input
+        type='text'
+        value={wallet}
+        placeholder='Search a wallet'
+        onChange={(e) => setWallet(e.target.value)}
+      />
+
+      <label>Block</label>
+      <input
+        type='text'
+        value={startBlock}
+        placeholder='Search'
+        onChange={(e) => setStartBlock(e.target.value)}
+      />
+      <button onClick={queryTransactions}>Get transactions</button>
     </div>
   )
 }
