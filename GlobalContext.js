@@ -43,7 +43,7 @@ const ContextProvider = ({ children }) => {
     setEndBlock(currentBlock)
     const transactions = await fetchTransactions(
       wallet,
-      START_BLOCK,
+      startBlock,
       currentBlock
     )
     setTransactionData(transactions)

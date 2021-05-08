@@ -29621,7 +29621,7 @@ const ContextProvider = ({
     const currentBlock = await fetchCurrentBlock(); // debugger
 
     setEndBlock(currentBlock);
-    const transactions = await fetchTransactions(wallet, START_BLOCK, currentBlock);
+    const transactions = await fetchTransactions(wallet, startBlock, currentBlock);
     setTransactionData(transactions);
     setIsLoading(false);
   };
@@ -31978,7 +31978,12 @@ const TransactionTable = () => {
     startBlock,
     endBlock
   } = (0, _react.useContext)(_GlobalContext.Context);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_FormInput.default, null), !isLoading && transactionData && /*#__PURE__*/_react.default.createElement("div", null, "Displaying result for address ", wallet, ", block range: ", startBlock, "-", endBlock), /*#__PURE__*/_react.default.createElement("div", null, isLoading ? /*#__PURE__*/_react.default.createElement("h1", null, "Loading...") : transactionData.map((item, index) => {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_FormInput.default, null), Boolean(!isLoading && transactionData.length) && /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      marginTop: '20px',
+      marginBottom: '20px'
+    }
+  }, "Displaying result for address ", wallet, ", block range: ", startBlock, "\xA0-\xA0", endBlock, ",\xA0number of transaction found:", ' ', transactionData.length - 1), /*#__PURE__*/_react.default.createElement("div", null, isLoading ? /*#__PURE__*/_react.default.createElement("h1", null, "Loading...") : transactionData.map((item, index) => {
     const price = item.value * 0.000000000000000001;
     const timeStampDate = new Date(Number(item.timeStamp * 1000)).toISOString();
     return /*#__PURE__*/_react.default.createElement(Row, {

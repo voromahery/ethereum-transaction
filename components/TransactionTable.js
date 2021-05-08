@@ -29,10 +29,12 @@ const TransactionTable = () => {
   return (
     <div>
       <FormInput />
-      {!isLoading && transactionData && (
-        <div>
-          Displaying result for address {wallet}, block range: {startBlock}-
-          {endBlock}
+      {Boolean(!isLoading && transactionData.length) && (
+        <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+          Displaying result for address {wallet}, block range: {startBlock}
+          &nbsp;-&nbsp;
+          {endBlock},&nbsp;number of transaction found:{' '}
+          {transactionData.length - 1}
         </div>
       )}
       <div>
