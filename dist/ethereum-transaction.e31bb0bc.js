@@ -29591,11 +29591,10 @@ const ContextProvider = ({
   const END_BLOCK = 99999999;
   const [transactionData, setTransactionData] = (0, _react.useState)([]);
   const [isLoading, setIsLoading] = (0, _react.useState)(false);
-  const [wallet, setWallet] = (0, _react.useState)('0x01D9Eb6f8bDc5DCB17Fc447aBB41e1a69F2CF292');
+  const [walletAddress, setWalletAddress] = (0, _react.useState)('0x01D9Eb6f8bDc5DCB17Fc447aBB41e1a69F2CF292');
   const [startBlock, setStartBlock] = (0, _react.useState)(START_BLOCK);
   const [endBlock, setEndBlock] = (0, _react.useState)(END_BLOCK);
-  const api_key = "AFNQ2SBGMZCYUKU7BNQR2FJWFPK88GEFHA"; // const dataUrl = `http://api.etherscan.io/api?module=account&action=txlist&address=${wallet}&startblock=0&endblock=99999999&sort=asc&apikey=${api_key}`
-
+  const api_key = "AFNQ2SBGMZCYUKU7BNQR2FJWFPK88GEFHA";
   const currentBlockUrl = `https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=${api_key}`;
 
   const getTransactionsUrl = (address, startBlock, endBlock, api_key) => {
@@ -29618,10 +29617,9 @@ const ContextProvider = ({
 
   const queryTransactions = async e => {
     setIsLoading(true);
-    const currentBlock = await fetchCurrentBlock(); // debugger
-
+    const currentBlock = await fetchCurrentBlock();
     setEndBlock(currentBlock);
-    const transactions = await fetchTransactions(wallet, startBlock, currentBlock);
+    const transactions = await fetchTransactions(walletAddress, startBlock, currentBlock);
     setTransactionData(transactions);
     setIsLoading(false);
   };
@@ -29630,8 +29628,8 @@ const ContextProvider = ({
   return /*#__PURE__*/_react.default.createElement(Context.Provider, {
     value: {
       transactionData,
-      wallet,
-      setWallet,
+      walletAddress,
+      setWalletAddress,
       startBlock,
       endBlock,
       setStartBlock,
@@ -31902,30 +31900,21 @@ const InputWrapper = _styledComponents.default.div`
 
 const FormInput = () => {
   const {
-    wallet,
-    setWallet,
+    walletAddress,
+    setWalletAddress,
     startBlock,
     setStartBlock,
     queryTransactions
   } = (0, _react.useContext)(_GlobalContext.Context);
-
-  const getWallet = e => {
-    e.preventDefault();
-    const form = e.target;
-  }; // const convertHexToDecimal = () => {
-  //   parseInt(hexValue, decimal)
-  // }
-
-
   return /*#__PURE__*/_react.default.createElement(Form, null, /*#__PURE__*/_react.default.createElement(InputWrapper, null, "Address", /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
-    value: wallet,
-    placeholder: "Search a wallet",
+    value: '',
+    placeholder: "Search a wallet address",
     onChange: e => setWallet(e.target.value)
   })), /*#__PURE__*/_react.default.createElement(InputWrapper, null, "Block", /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
-    value: startBlock,
-    placeholder: "Search",
+    value: '',
+    placeholder: "Start block",
     onChange: e => setStartBlock(e.target.value)
   })), /*#__PURE__*/_react.default.createElement(GetTransactionButton, {
     onClick: queryTransactions
@@ -31974,7 +31963,7 @@ const TransactionTable = () => {
   const {
     transactionData,
     isLoading,
-    wallet,
+    walletAddress,
     startBlock,
     endBlock
   } = (0, _react.useContext)(_GlobalContext.Context);
@@ -31983,7 +31972,7 @@ const TransactionTable = () => {
       marginTop: '20px',
       marginBottom: '20px'
     }
-  }, "Displaying result for address ", wallet, ", block range: ", startBlock, "\xA0-\xA0", endBlock, ",\xA0number of transaction found:", ' ', transactionData.length - 1), /*#__PURE__*/_react.default.createElement("div", null, isLoading ? /*#__PURE__*/_react.default.createElement("h1", null, "Loading...") : transactionData.map((item, index) => {
+  }, "Displaying result for address ", walletAddress, ", block range:", ' ', startBlock, "\xA0-\xA0", endBlock, ",\xA0number of transaction found:", transactionData.length - 1), /*#__PURE__*/_react.default.createElement("div", null, isLoading ? /*#__PURE__*/_react.default.createElement("h1", null, "Loading...") : transactionData.map((item, index) => {
     const price = item.value * 0.000000000000000001;
     const timeStampDate = new Date(Number(item.timeStamp * 1000)).toISOString();
     return /*#__PURE__*/_react.default.createElement(Row, {
@@ -32071,7 +32060,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39213" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40241" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

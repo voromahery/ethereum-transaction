@@ -22,7 +22,7 @@ const TransactionTable = () => {
   const {
     transactionData,
     isLoading,
-    wallet,
+    walletAddress,
     startBlock,
     endBlock,
   } = useContext(Context)
@@ -31,9 +31,10 @@ const TransactionTable = () => {
       <FormInput />
       {Boolean(!isLoading && transactionData.length) && (
         <div style={{ marginTop: '20px', marginBottom: '20px' }}>
-          Displaying result for address {wallet}, block range: {startBlock}
+          Displaying result for address {walletAddress}, block range:{' '}
+          {startBlock}
           &nbsp;-&nbsp;
-          {endBlock},&nbsp;number of transaction found:{' '}
+          {endBlock},&nbsp;number of transaction found:
           {transactionData.length - 1}
         </div>
       )}

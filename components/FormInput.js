@@ -20,21 +20,12 @@ const InputWrapper = styled.div`
 
 const FormInput = () => {
   const {
-    wallet,
-    setWallet,
+    walletAddress,
+    setWalletAddress,
     startBlock,
     setStartBlock,
     queryTransactions,
   } = useContext(Context)
-
-  const getWallet = (e) => {
-    e.preventDefault()
-    const form = e.target
-  }
-
-  // const convertHexToDecimal = () => {
-  //   parseInt(hexValue, decimal)
-  // }
 
   return (
     <Form>
@@ -42,8 +33,8 @@ const FormInput = () => {
         Address
         <input
           type='text'
-          value={wallet}
-          placeholder='Search a wallet'
+          value={''}
+          placeholder='Search a wallet address'
           onChange={(e) => setWallet(e.target.value)}
         />
       </InputWrapper>
@@ -52,8 +43,8 @@ const FormInput = () => {
         Block
         <input
           type='text'
-          value={startBlock}
-          placeholder='Search'
+          value={''}
+          placeholder='Start block'
           onChange={(e) => setStartBlock(e.target.value)}
         />
       </InputWrapper>
