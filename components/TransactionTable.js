@@ -1,48 +1,81 @@
 import React, { useContext } from 'react'
+import styled from 'styled-components'
 import { Context } from '../GlobalContext'
 import FormInput from './FormInput'
 
+const Row = styled.div`
+  display: flex;
+  background-color: #e7eaf3;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 10px;
+  padding-right: 10px;
+`
+
+const TransactionIcon = styled.div`
+  background-color: dodgerblue;
+  border-radius: 5px;
+  padding: 40px;
+`
+
 const TransactionTable = () => {
-  const { transactionData, isLoading } = useContext(Context)
+  const {
+    transactionData,
+    isLoading,
+    wallet,
+    startBlock,
+    endBlock,
+  } = useContext(Context)
   return (
     <div>
       <FormInput />
+      {!isLoading && transactionData && (
+        <div>
+          Displaying result for address {wallet}, block range: {startBlock}-
+          {endBlock}
+        </div>
+      )}
       <div>
         {isLoading ? (
           <h1>Loading...</h1>
         ) : (
-          // transactionData > 0 &&
           transactionData.map((item, index) => {
             const price = item.value * 0.000000000000000001
+            const timeStampDate = new Date(
+              Number(item.timeStamp * 1000)
+            ).toISOString()
+
             return (
-              <div key={item.timeStamp + index}>
-                <span>Tx</span>
-                <div>
+              <Row key={item.timeStamp + index}>
+                <TransactionIcon>Tx</TransactionIcon>
+                <div style={{ minWidth: '530px' }}>
                   <p>
                     <a href={`https://etherscan.io/tx/${item.blockHash}`}>
                       {item.hash}
                     </a>
                   </p>
-                  <time>{item.timeStamp}</time>
+                  <div>
+                    timestamp: {item.timeStamp}, {timeStampDate}
+                  </div>
                 </div>
                 <div>
                   <p>
-                    From:
+                    From:&nbsp;
                     <a href={`https://etherscan.io/address/${item.from}`}>
                       {item.from}
                     </a>
                   </p>
                   <p>
-                    To:
+                    To:&nbsp;
                     <a href={`https://etherscan.io/address/${item.to}`}>
                       {item.to}
                     </a>
                   </p>
                 </div>
-                <div>
+                <div style={{ textAlign: 'right', width: '100%' }}>
                   <span>{price}</span> <span>Eth</span>
                 </div>
-              </div>
+              </Row>
             )
           })
         )}

@@ -1,5 +1,22 @@
 import React, { useContext, useState } from 'react'
+import styled from 'styled-components'
 import { Context } from '../GlobalContext'
+
+const Form = styled.div`
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: space-between;
+`
+
+const GetTransactionButton = styled.button`
+  max-width: max-content;
+`
+
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
 const FormInput = () => {
   const {
@@ -20,24 +37,30 @@ const FormInput = () => {
   // }
 
   return (
-    <div>
-      <label>Address</label>
-      <input
-        type='text'
-        value={wallet}
-        placeholder='Search a wallet'
-        onChange={(e) => setWallet(e.target.value)}
-      />
+    <Form>
+      <InputWrapper>
+        Address
+        <input
+          type='text'
+          value={wallet}
+          placeholder='Search a wallet'
+          onChange={(e) => setWallet(e.target.value)}
+        />
+      </InputWrapper>
 
-      <label>Block</label>
-      <input
-        type='text'
-        value={startBlock}
-        placeholder='Search'
-        onChange={(e) => setStartBlock(e.target.value)}
-      />
-      <button onClick={queryTransactions}>Get transactions</button>
-    </div>
+      <InputWrapper>
+        Block
+        <input
+          type='text'
+          value={startBlock}
+          placeholder='Search'
+          onChange={(e) => setStartBlock(e.target.value)}
+        />
+      </InputWrapper>
+      <GetTransactionButton onClick={queryTransactions}>
+        Get transactions
+      </GetTransactionButton>
+    </Form>
   )
 }
 
