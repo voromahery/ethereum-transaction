@@ -43,11 +43,9 @@ const BalanceSearchInput = () => {
     '0xdAC17F958D2ee523a2206206994597C13D831ec7'
   )
 
-  // const tokenAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7' // USDT
-  // const walletTokenAddress = "0xe053e07212a5a84ec8c5478e497e6b163b0c50ed";// shibuya
-  // const walletTokenAddress = '0x424FC8c1a37D386Ff49D6F886A946ABA0a76f8b2' // with USDT
-
   const findBalance = async () => {
+    setEthBalance('')
+    setTokenInfo({ balance: '', symbol: '' })
     setIsLoading(true)
     const blockNumberForDate = await getBlockNumberForDate(dateTextValue)
     console.log(blockNumberForDate, 'BLOCK NUMBER')

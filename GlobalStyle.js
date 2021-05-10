@@ -34,16 +34,16 @@ button {
     padding: 10px
 }
 
-  @keyframes spinner {
+@keyframes spinner {
     from {
       transform: rotate(0deg);
     }
     to {
       transform: rotate(360deg);
-    }
+}
   }
 
-  #spinner {
+#spinner {
     min-width: 40px;
     min-height: 40px;
     border: 5px solid rgba(255, 255, 255, 0.1);

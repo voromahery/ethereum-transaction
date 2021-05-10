@@ -10,6 +10,13 @@ import {
   getEthBalanceAtBlock,
 } from '../utils/web3Utils'
 
+const BoldText = styled.div`
+  font-size: 20px;
+  font-weight: 700;
+  margin: 10px;
+  margin-left: 0;
+`
+
 const BalanceTable = () => {
   const {
     transactionData,
@@ -28,8 +35,14 @@ const BalanceTable = () => {
         <LoadingIndicator />
       ) : (
         <div>
-          <div>balance: {Web3.utils.fromWei(ethBalance)} Eth</div>
-          <div>Token balance: {`${tokenInfo.balance} ${tokenInfo.symbol}`}</div>
+          {ethBalance && (
+            <BoldText>Balance: {Web3.utils.fromWei(ethBalance)} Eth</BoldText>
+          )}
+          {tokenInfo.balance && (
+            <BoldText>
+              Token balance: {`${tokenInfo.balance} ${tokenInfo.symbol}`}
+            </BoldText>
+          )}
         </div>
       )}
     </div>

@@ -7,6 +7,7 @@ import styled from 'styled-components'
 const TabWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom: 20px;
 `
 
 const Tab = styled.div`
@@ -31,6 +32,7 @@ const App = () => {
           Balance checker
         </Tab>
       </TabWrapper>
+
       {isCrawlerTab ? <TransactionTable /> : <BalanceTable />}
     </div>
   )
