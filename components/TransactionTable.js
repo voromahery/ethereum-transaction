@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Context } from '../GlobalContext'
-import FormInput from './FormInput'
+import TransactionCrawlerInput from './TransactionCrawlerInput'
 
 const Row = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ const TransactionTable = () => {
   } = useContext(Context)
   return (
     <div>
-      <FormInput />
+      <TransactionCrawlerInput />
       {Boolean(!isLoading && transactionData.length) && (
         <div style={{ marginTop: '20px', marginBottom: '20px' }}>
           Displaying result for address {walletAddress}, block range:{' '}

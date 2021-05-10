@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import MaskedInput from 'react-maskedinput'
 import styled from 'styled-components'
 import { Context } from '../GlobalContext'
 
@@ -18,36 +19,31 @@ const InputWrapper = styled.div`
   flex-direction: column;
 `
 
-const FormInput = () => {
+const BalanceSearchInput = () => {
   const {
     walletAddress,
     setWalletAddress,
     startBlock,
     setStartBlock,
+    balance,
+    setBalance,
     queryTransactions,
   } = useContext(Context)
+
+  const [dateTextValue, setDateTextValue] = useState('')
 
   return (
     <Form>
       <InputWrapper>
-        Address
-        <input
-          type='text'
-          value={''}
-          placeholder='Search a wallet address'
-          onChange={(e) => setWallet(e.target.value)}
+        Date
+        <MaskedInput
+          mask='1111-11-11'
+          name='date'
+          size='10'
+          onChange={(e) => setDateTextValue(e)}
         />
       </InputWrapper>
 
-      <InputWrapper>
-        Block
-        <input
-          type='text'
-          value={''}
-          placeholder='Start block'
-          onChange={(e) => setStartBlock(e.target.value)}
-        />
-      </InputWrapper>
       <GetTransactionButton onClick={queryTransactions}>
         Get transactions
       </GetTransactionButton>
@@ -55,4 +51,4 @@ const FormInput = () => {
   )
 }
 
-export default FormInput
+export default BalanceSearchInput

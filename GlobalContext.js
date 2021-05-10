@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
 const Context = React.createContext()
 
+export const CRAWLER_TAB = 'CRAWLER_TAB'
+export const BALANCE_TAB = 'BALANCE_TAB'
+
 const ContextProvider = ({ children }) => {
   const START_BLOCK = 0
   const END_BLOCK = 99999999
   const [transactionData, setTransactionData] = useState([])
+  const [balance, setBalance] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [activeTab, setActiveTab] = useState(CRAWLER_TAB)
   const [walletAddress, setWalletAddress] = useState(
     '0x01D9Eb6f8bDc5DCB17Fc447aBB41e1a69F2CF292'
   )
@@ -53,14 +58,18 @@ const ContextProvider = ({ children }) => {
   return (
     <Context.Provider
       value={{
-        transactionData,
-        walletAddress,
-        setWalletAddress,
-        startBlock,
         endBlock,
-        setStartBlock,
         isLoading,
+        startBlock,
+        activeTab,
+        walletAddress,
+        transactionData,
+        setStartBlock,
+        setActiveTab,
+        setWalletAddress,
         queryTransactions,
+        balance,
+        setBalance,
       }}>
       {children}
     </Context.Provider>
