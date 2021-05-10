@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { Context } from '../GlobalContext'
+import { Context, FIRST_PAGE, RESULTS_PER_PAGE } from '../GlobalContext'
 import LoadingIndicator from './LoadingIndicator'
 import TransactionCrawlerInput from './TransactionCrawlerInput'
 
@@ -19,27 +19,66 @@ const TransactionIcon = styled.div`
   padding: 40px;
 `
 
+const PaginationWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`
+const PaginationButton = styled.div`
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 6px;
+`
+
 const TransactionTable = () => {
   const {
     transactionData,
     isLoading,
     walletAddress,
     startBlock,
+    currentPage,
+    queryTransactions,
+    setCurrentPage,
     errorMessage,
     setErrorMessage,
     endBlock,
   } = useContext(Context)
+
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1)
+    queryTransactions()
+  }
+
+  const previousPage = () => {
+    setCurrentPage(currentPage - 1)
+    queryTransactions()
+  }
 
   return (
     <div>
       <TransactionCrawlerInput />
       {Boolean(!isLoading && transactionData.length) && (
         <div style={{ marginTop: '20px', marginBottom: '20px' }}>
-          Displaying result for address {walletAddress}, block range:{' '}
+          Displaying result for address {walletAddress}, block range:
           {startBlock}
           &nbsp;-&nbsp;
           {endBlock},&nbsp;number of transaction found: &nbsp;
           {transactionData.length}
+          <PaginationWrapper>
+            {currentPage > FIRST_PAGE && (
+              <PaginationButton onClick={previousPage}>
+                {'<< Previous page'}
+              </PaginationButton>
+            )}
+            {transactionData.length >= RESULTS_PER_PAGE && (
+              <PaginationButton onClick={nextPage}>
+                {'Next page >>'}
+              </PaginationButton>
+            )}
+          </PaginationWrapper>
         </div>
       )}
       <div>

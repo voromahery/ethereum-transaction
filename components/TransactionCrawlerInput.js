@@ -35,7 +35,7 @@ const TransactionCrawlerInput = () => {
       queryTransactions()
     } else {
       setErrorMessage(
-        'Please fill both fields, eg Address: 0x424FC8c1a37D386Ff49D6F886A946ABA0a76f8b2, Start block: 11860671'
+        'Please fill both fields, eg Address: 0xaa7a9ca87d3694b5755f213b5d04094b8d0f0a6f, Start block: 11860671'
       )
     }
   }
@@ -53,7 +53,7 @@ const TransactionCrawlerInput = () => {
       </InputWrapper>
 
       <InputWrapper>
-        Block*
+        Start block*
         <input
           type='text'
           value={startBlock}
