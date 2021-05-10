@@ -43,7 +43,7 @@ const TransactionCrawlerInput = () => {
   return (
     <Form>
       <InputWrapper>
-        Address
+        Address*
         <input
           type='text'
           value={walletAddress}
@@ -53,7 +53,7 @@ const TransactionCrawlerInput = () => {
       </InputWrapper>
 
       <InputWrapper>
-        Block
+        Block*
         <input
           type='text'
           value={startBlock}

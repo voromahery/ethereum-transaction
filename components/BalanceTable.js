@@ -25,6 +25,7 @@ const BalanceTable = () => {
     startBlock,
     endBlock,
     ethBalance,
+    setErrorMessage,
     tokenInfo,
   } = useContext(Context)
 

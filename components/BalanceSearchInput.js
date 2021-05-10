@@ -33,15 +33,14 @@ const BalanceSearchInput = () => {
     ethBalance,
     setEthBalance,
     tokenInfo,
+    setErrorMessage,
     setTokenInfo,
     setIsLoading,
     queryTransactions,
   } = useContext(Context)
 
-  const [dateTextValue, setDateTextValue] = useState('2021-05-08')
-  const [tokenContract, setTokenContract] = useState(
-    '0xdAC17F958D2ee523a2206206994597C13D831ec7'
-  )
+  const [dateTextValue, setDateTextValue] = useState('')
+  const [tokenContract, setTokenContract] = useState('')
 
   const findBalance = async () => {
     setEthBalance('')
@@ -69,6 +68,17 @@ const BalanceSearchInput = () => {
     setIsLoading(false)
   }
 
+  const getQuery = () => {
+    if (walletAddress && dateTextValue) {
+      setErrorMessage('')
+      findBalance()
+    } else {
+      setErrorMessage(
+        'Please fill both fields, eg Address: 0x424FC8c1a37D386Ff49D6F886A946ABA0a76f8b2, Start date: 2021-01-01'
+      )
+    }
+  }
+
   return (
     <Form>
       <InputWrapper>
@@ -92,7 +102,8 @@ const BalanceSearchInput = () => {
       </InputWrapper>
 
       <InputWrapper>
-        Token Contract (optional)
+        Token Contract (optional) eg: 0xdAC17F958D2ee523a2206206994597C13D831ec7
+        [USDT]
         <input
           type='text'
           value={tokenContract}
@@ -100,7 +111,7 @@ const BalanceSearchInput = () => {
           onChange={(e) => setTokenContract(e.target.value)}
         />
       </InputWrapper>
-      <GetTransactionButton onClick={findBalance}>
+      <GetTransactionButton onClick={getQuery}>
         Get balance
       </GetTransactionButton>
     </Form>

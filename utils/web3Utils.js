@@ -100,7 +100,8 @@ export const getBlockNumberForDate = async (date) => {
 }
 
 export const getEthBalanceAtBlock = async (address, blockNumber) => {
-  let balance = await getWeb3().eth.getBalance(address, blockNumber)
+  const trimmedAddress = address.trim()
+  let balance = await getWeb3().eth.getBalance(trimmedAddress, blockNumber)
   console.log(getWeb3())
   return balance
 }
@@ -111,12 +112,15 @@ export const getTokenInformation = async (
   tokenContractAddress
 ) => {
   const web3 = getWeb3()
+  const trimmedTokenContractAddress = tokenContractAddress.trim()
+  const trimmedWalletTokenAddress = walletTokenAddress.trim()
+  console.log(trimmedTokenContractAddress)
+  console.log(trimmedWalletTokenAddress)
   var MyContract = await new web3.eth.Contract(
     contractStandardAbi,
-    tokenContractAddress,
+    trimmedTokenContractAddress,
     {
-      from: walletTokenAddress, // default from address
-      // gasPrice: "20000000000", // default gas price in wei, 20 gwei in this case
+      from: trimmedWalletTokenAddress, // default from address
     }
   )
 
@@ -129,8 +133,6 @@ export const getTokenInformation = async (
       return result
     })
 
-  console.log(MyContract, 'CONTRACT')
-
   const decimals = await MyContract.methods
     .decimals()
     .call()
@@ -141,16 +143,11 @@ export const getTokenInformation = async (
     })
 
   const tokenBalance = await MyContract.methods
-    .balanceOf(walletTokenAddress)
-    .call(undefined, 12394852)
+    .balanceOf(trimmedWalletTokenAddress)
+    .call(undefined, blockNumber)
     .then(function (result) {
-      console.log(walletTokenAddress, 'WALLET ADDRESS')
-      console.log(blockNumber, 'BLOCK NUMBER')
       const myTokenBalance = result
-      console.log(result, 'result')
-      console.log(tokenContractAddress, 'tokenContractAddress')
       const formated = Number(myTokenBalance) / Math.pow(10, decimals) // 0.000001; //TODO: get decimals from contract
-      console.log(formated, 'formatedBalance at block')
       return formated
     })
   return { balance: tokenBalance, symbol: tokenSymbol }
