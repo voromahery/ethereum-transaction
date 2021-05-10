@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { Context } from '../GlobalContext'
 import BalanceSearchInput from './BalanceSearchInput'
+import { getCurrentBlockNumber } from '../utils/web3Utils'
 
 const BalanceTable = () => {
   const {
@@ -11,6 +12,14 @@ const BalanceTable = () => {
     startBlock,
     endBlock,
   } = useContext(Context)
+
+  console.log('HELLO')
+
+  useEffect(async () => {
+    const blockNumber = await getCurrentBlockNumber()
+    console.log(blockNumber)
+  }, [])
+
   return (
     <div>
       <BalanceSearchInput />

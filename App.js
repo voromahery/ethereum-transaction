@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import TransactionTable from './components/TransactionTable'
 import { BALANCE_TAB, Context, CRAWLER_TAB } from './GlobalContext'
-import BalanceTable from './components/BalanceSearchInput'
+import BalanceTable from './components/BalanceTable'
 import styled from 'styled-components'
 
 const TabWrapper = styled.div`
