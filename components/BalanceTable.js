@@ -1,14 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import Web3 from 'web3'
 import styled from 'styled-components'
 import { Context } from '../GlobalContext'
 import BalanceSearchInput from './BalanceSearchInput'
 import LoadingIndicator from './LoadingIndicator'
-import {
-  getCurrentBlockNumber,
-  getBlockNumberForDate,
-  getEthBalanceAtBlock,
-} from '../utils/web3Utils'
 
 const BoldText = styled.div`
   font-size: 20px;
@@ -18,16 +13,7 @@ const BoldText = styled.div`
 `
 
 const BalanceTable = () => {
-  const {
-    transactionData,
-    isLoading,
-    walletAddress,
-    startBlock,
-    endBlock,
-    ethBalance,
-    setErrorMessage,
-    tokenInfo,
-  } = useContext(Context)
+  const { isLoading, ethBalance, tokenInfo } = useContext(Context)
 
   return (
     <div>

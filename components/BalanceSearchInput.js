@@ -28,15 +28,10 @@ const BalanceSearchInput = () => {
   const {
     walletAddress,
     setWalletAddress,
-    startBlock,
-    setStartBlock,
-    ethBalance,
     setEthBalance,
-    tokenInfo,
     setErrorMessage,
     setTokenInfo,
     setIsLoading,
-    queryTransactions,
   } = useContext(Context)
 
   const [dateTextValue, setDateTextValue] = useState('')
@@ -47,14 +42,12 @@ const BalanceSearchInput = () => {
     setTokenInfo({ balance: '', symbol: '' })
     setIsLoading(true)
     const blockNumberForDate = await getBlockNumberForDate(dateTextValue)
-    console.log(blockNumberForDate, 'BLOCK NUMBER')
 
     const ethBalanceAtBlock = await getEthBalanceAtBlock(
       walletAddress,
       blockNumberForDate
     )
 
-    console.log(ethBalanceAtBlock, 'ETH BALANCE')
     setEthBalance(ethBalanceAtBlock)
     if (tokenContract) {
       const tokenInfo = await getTokenInformation(
@@ -62,7 +55,6 @@ const BalanceSearchInput = () => {
         blockNumberForDate,
         tokenContract
       )
-      console.log(tokenInfo, 'TOKEN INFO')
       setTokenInfo(tokenInfo)
     }
     setIsLoading(false)

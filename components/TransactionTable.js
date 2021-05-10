@@ -42,8 +42,6 @@ const TransactionTable = () => {
     currentPage,
     queryTransactions,
     setCurrentPage,
-    errorMessage,
-    setErrorMessage,
     endBlock,
   } = useContext(Context)
 
@@ -65,8 +63,7 @@ const TransactionTable = () => {
           Displaying result for address {walletAddress}, block range:
           {startBlock}
           &nbsp;-&nbsp;
-          {endBlock},&nbsp;number of transaction found: &nbsp;
-          {transactionData.length}
+          {endBlock}.
           <PaginationWrapper>
             {currentPage > FIRST_PAGE && (
               <PaginationButton onClick={previousPage}>
@@ -86,6 +83,7 @@ const TransactionTable = () => {
           <LoadingIndicator />
         ) : (
           transactionData.map((item, index) => {
+            // I could use Web3.fromWei but in this part I wanted to use just Etherscan API without Web3 library
             const price = item.value * 0.000000000000000001
             const timeStampDate = new Date(
               Number(item.timeStamp * 1000)

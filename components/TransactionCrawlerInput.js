@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
-import { Context } from '../GlobalContext'
+import { Context, FIRST_PAGE } from '../GlobalContext'
 
 const Form = styled.div`
   display: flex;
@@ -26,10 +26,12 @@ const TransactionCrawlerInput = () => {
     setStartBlock,
     queryTransactions,
     errorMessage,
+    setCurrentPage,
     setErrorMessage,
   } = useContext(Context)
 
   const getQuery = () => {
+    setCurrentPage(FIRST_PAGE)
     if (walletAddress && startBlock) {
       setErrorMessage('')
       queryTransactions()

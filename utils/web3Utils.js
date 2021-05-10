@@ -79,7 +79,6 @@ const getDater = () => {
     return daterInstance
   } else {
     daterInstance = new EthDater(getWeb3())
-    console.log(daterInstance, 'daterIstance')
     return daterInstance
   }
 }
@@ -90,19 +89,14 @@ export const getCurrentBlockNumber = async () => {
 
 // Expected date format YYYY-MM-DD
 export const getBlockNumberForDate = async (date) => {
-  console.log(date, 'getBlockNumberDate')
-  const dateAtZeroTime = date + 'T00:00:00Z'
-  let blockAtDate = await getDater().getDate(
-    dateAtZeroTime, // Date, required. Any valid moment.js value: string, milliseconds, Date() object, moment() object.
-    true // Block after, optional. Search for the nearest block before or after the given date. By default true.
-  )
+  const dateAtMidnight = date + 'T00:00:00Z'
+  const blockAtDate = await getDater().getDate(dateAtMidnight, true)
   return blockAtDate.block
 }
 
 export const getEthBalanceAtBlock = async (address, blockNumber) => {
   const trimmedAddress = address.trim()
-  let balance = await getWeb3().eth.getBalance(trimmedAddress, blockNumber)
-  console.log(getWeb3())
+  const balance = await getWeb3().eth.getBalance(trimmedAddress, blockNumber)
   return balance
 }
 
@@ -114,13 +108,11 @@ export const getTokenInformation = async (
   const web3 = getWeb3()
   const trimmedTokenContractAddress = tokenContractAddress.trim()
   const trimmedWalletTokenAddress = walletTokenAddress.trim()
-  console.log(trimmedTokenContractAddress)
-  console.log(trimmedWalletTokenAddress)
   var MyContract = await new web3.eth.Contract(
     contractStandardAbi,
     trimmedTokenContractAddress,
     {
-      from: trimmedWalletTokenAddress, // default from address
+      from: trimmedWalletTokenAddress,
     }
   )
 
@@ -128,8 +120,6 @@ export const getTokenInformation = async (
     .symbol()
     .call()
     .then(function (result) {
-      var myTokenBalance = result
-      console.log(result, 'symbol')
       return result
     })
 
@@ -137,8 +127,6 @@ export const getTokenInformation = async (
     .decimals()
     .call()
     .then(function (result) {
-      var myTokenBalance = result
-      console.log(result, 'decimals')
       return result
     })
 
@@ -147,7 +135,7 @@ export const getTokenInformation = async (
     .call(undefined, blockNumber)
     .then(function (result) {
       const myTokenBalance = result
-      const formated = Number(myTokenBalance) / Math.pow(10, decimals) // 0.000001; //TODO: get decimals from contract
+      const formated = Number(myTokenBalance) / Math.pow(10, decimals)
       return formated
     })
   return { balance: tokenBalance, symbol: tokenSymbol }
