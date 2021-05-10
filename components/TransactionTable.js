@@ -9,13 +9,15 @@ const Row = styled.div`
   background-color: #e7eaf3;
   align-items: center;
   gap: 20px;
+  border-radius: 5px;
   margin-bottom: 10px;
   padding-right: 10px;
 `
 
 const TransactionIcon = styled.div`
   background-color: dodgerblue;
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
   padding: 40px;
 `
 

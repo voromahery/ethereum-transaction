@@ -20,7 +20,7 @@ const ContextProvider = ({ children }) => {
   const [endBlock, setEndBlock] = useState(END_BLOCK)
   const [errorMessage, setErrorMessage] = useState('')
   const [currentPage, setCurrentPage] = useState(FIRST_PAGE)
-  const api_key = process.env.REACT_APP_API_KEY
+  const api_key = process.env.ETHERSCAN_API_KEY
   const currentBlockUrl = `https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=${api_key}`
 
   const getTransactionsUrl = (
