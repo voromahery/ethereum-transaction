@@ -5,6 +5,7 @@ export const CRAWLER_TAB = 'CRAWLER_TAB'
 export const BALANCE_TAB = 'BALANCE_TAB'
 export const RESULTS_PER_PAGE = 1000
 export const FIRST_PAGE = 1
+const api_key = process.env.ETHERSCAN_API_KEY
 
 const ContextProvider = ({ children }) => {
   const START_BLOCK = 12390294
@@ -20,7 +21,6 @@ const ContextProvider = ({ children }) => {
   const [endBlock, setEndBlock] = useState(END_BLOCK)
   const [errorMessage, setErrorMessage] = useState('')
   const [currentPage, setCurrentPage] = useState(FIRST_PAGE)
-  const api_key = process.env.ETHERSCAN_API_KEY
   const currentBlockUrl = `https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=${api_key}`
 
   const getTransactionsUrl = (
