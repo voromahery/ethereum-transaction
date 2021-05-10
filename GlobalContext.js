@@ -13,7 +13,7 @@ const ContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState(CRAWLER_TAB)
   const [walletAddress, setWalletAddress] = useState(
-    '0x01D9Eb6f8bDc5DCB17Fc447aBB41e1a69F2CF292'
+    '0x424FC8c1a37D386Ff49D6F886A946ABA0a76f8b2'
   )
   const [startBlock, setStartBlock] = useState(START_BLOCK)
   const [endBlock, setEndBlock] = useState(END_BLOCK)

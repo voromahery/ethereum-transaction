@@ -105,12 +105,13 @@ export const getEthBalanceAtBlock = async (address, blockNumber) => {
   return balance
 }
 
-export const getTokenInformation = (
+export const getTokenInformation = async (
   walletTokenAddress,
   blockNumber,
   tokenContractAddress
 ) => {
-  var MyContract = new web3.eth.Contract(
+  const web3 = getWeb3()
+  var MyContract = await new web3.eth.Contract(
     contractStandardAbi,
     tokenContractAddress,
     {
@@ -119,13 +120,38 @@ export const getTokenInformation = (
     }
   )
 
-  MyContract.methods
-    .balanceOf(walletTokenAddress)
-    .call(undefined, blockNumber)
+  const tokenSymbol = await MyContract.methods
+    .symbol()
+    .call()
     .then(function (result) {
       var myTokenBalance = result
-      const formated = Number(result) / Math.pow(10, 6) // 0.000001; //TODO: get decimals from contract
-      console.log(formated, 'formatedBalance at block')
+      console.log(result, 'symbol')
       return result
     })
+
+  console.log(MyContract, 'CONTRACT')
+
+  const decimals = await MyContract.methods
+    .decimals()
+    .call()
+    .then(function (result) {
+      var myTokenBalance = result
+      console.log(result, 'decimals')
+      return result
+    })
+
+  const tokenBalance = await MyContract.methods
+    .balanceOf(walletTokenAddress)
+    .call(undefined, 12394852)
+    .then(function (result) {
+      console.log(walletTokenAddress, 'WALLET ADDRESS')
+      console.log(blockNumber, 'BLOCK NUMBER')
+      const myTokenBalance = result
+      console.log(result, 'result')
+      console.log(tokenContractAddress, 'tokenContractAddress')
+      const formated = Number(myTokenBalance) / Math.pow(10, decimals) // 0.000001; //TODO: get decimals from contract
+      console.log(formated, 'formatedBalance at block')
+      return formated
+    })
+  return { balance: tokenBalance, symbol: tokenSymbol }
 }

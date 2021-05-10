@@ -2,7 +2,11 @@ import React, { useContext, useState } from 'react'
 import MaskedInput from 'react-maskedinput'
 import styled from 'styled-components'
 import { Context } from '../GlobalContext'
-import { getBlockNumberForDate, getEthBalanceAtBlock } from '../utils/web3Utils'
+import {
+  getBlockNumberForDate,
+  getEthBalanceAtBlock,
+  getTokenInformation,
+} from '../utils/web3Utils'
 
 const Form = styled.div`
   display: flex;
@@ -36,9 +40,15 @@ const BalanceSearchInput = () => {
 
   const [dateTextValue, setDateTextValue] = useState('2021-05-08')
   const [address, setAddress] = useState(
-    '0x415f2a38d1953eaa5d098f6ee3d8da4001b18889'
+    '0x424FC8c1a37D386Ff49D6F886A946ABA0a76f8b2'
   )
-  const [tokenContract, setTokenContract] = useState('')
+  const [tokenContract, setTokenContract] = useState(
+    '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+  )
+
+  // const tokenAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7' // USDT
+  // const walletTokenAddress = "0xe053e07212a5a84ec8c5478e497e6b163b0c50ed";// shibuya
+  // const walletTokenAddress = '0x424FC8c1a37D386Ff49D6F886A946ABA0a76f8b2' // with USDT
 
   const findBalance = async () => {
     setIsLoading(true)
@@ -52,6 +62,15 @@ const BalanceSearchInput = () => {
 
     console.log(ethBalanceAtBlock, 'ETH BALANCE')
     setEthBalance(ethBalanceAtBlock)
+    if (tokenContract) {
+      const tokenInfo = await getTokenInformation(
+        walletAddress,
+        blockNumberForDate,
+        tokenContract
+      )
+      console.log(tokenInfo, 'TOKEN INFO')
+      setTokenInfo(tokenInfo)
+    }
     setIsLoading(false)
   }
 
@@ -71,9 +90,9 @@ const BalanceSearchInput = () => {
         Address
         <input
           type='text'
-          value={address}
+          value={walletAddress}
           placeholder='Wallet address'
-          onChange={(e) => setAddress(e.target.value)}
+          onChange={(e) => setWalletAddress(e.target.value)}
         />
       </InputWrapper>
 

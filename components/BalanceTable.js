@@ -17,6 +17,7 @@ const BalanceTable = () => {
     startBlock,
     endBlock,
     ethBalance,
+    tokenInfo,
   } = useContext(Context)
 
   return (
@@ -25,7 +26,10 @@ const BalanceTable = () => {
       {isLoading ? (
         <h3>Loading...</h3>
       ) : (
-        <div>balance: {Web3.utils.fromWei(ethBalance)} Eth</div>
+        <div>
+          <div>balance: {Web3.utils.fromWei(ethBalance)} Eth</div>
+          <div>Token balance: {`${tokenInfo.balance} ${tokenInfo.symbol}`}</div>
+        </div>
       )}
     </div>
   )
