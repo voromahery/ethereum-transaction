@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from 'react'
+import Web3 from 'web3'
 import styled from 'styled-components'
 import { Context } from '../GlobalContext'
 import BalanceSearchInput from './BalanceSearchInput'
 import {
   getCurrentBlockNumber,
   getBlockNumberForDate,
+  getEthBalanceAtBlock,
 } from '../utils/web3Utils'
 
 const BalanceTable = () => {
@@ -14,18 +16,17 @@ const BalanceTable = () => {
     walletAddress,
     startBlock,
     endBlock,
+    ethBalance,
   } = useContext(Context)
-
-  console.log('HELLO')
-
-  useEffect(async () => {
-    const blockNumber = await getCurrentBlockNumber()
-    const blockNumberAtDate = await getBlockNumberForDate('2021-03-25')
-  }, [])
 
   return (
     <div>
       <BalanceSearchInput />
+      {isLoading ? (
+        <h3>Loading...</h3>
+      ) : (
+        <div>balance: {Web3.utils.fromWei(ethBalance)} Eth</div>
+      )}
     </div>
   )
 }

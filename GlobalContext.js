@@ -8,7 +8,8 @@ const ContextProvider = ({ children }) => {
   const START_BLOCK = 0
   const END_BLOCK = 99999999
   const [transactionData, setTransactionData] = useState([])
-  const [balance, setBalance] = useState('')
+  const [ethBalance, setEthBalance] = useState('')
+  const [tokenInfo, setTokenInfo] = useState({ balance: '', symbol: '' })
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState(CRAWLER_TAB)
   const [walletAddress, setWalletAddress] = useState(
@@ -65,11 +66,14 @@ const ContextProvider = ({ children }) => {
         walletAddress,
         transactionData,
         setStartBlock,
+        setIsLoading,
         setActiveTab,
         setWalletAddress,
         queryTransactions,
-        balance,
-        setBalance,
+        ethBalance,
+        setEthBalance,
+        tokenInfo,
+        setTokenInfo,
       }}>
       {children}
     </Context.Provider>
