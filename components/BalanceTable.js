@@ -2,7 +2,10 @@ import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { Context } from '../GlobalContext'
 import BalanceSearchInput from './BalanceSearchInput'
-import { getCurrentBlockNumber } from '../utils/web3Utils'
+import {
+  getCurrentBlockNumber,
+  getBlockNumberForDate,
+} from '../utils/web3Utils'
 
 const BalanceTable = () => {
   const {
@@ -17,7 +20,7 @@ const BalanceTable = () => {
 
   useEffect(async () => {
     const blockNumber = await getCurrentBlockNumber()
-    console.log(blockNumber)
+    const blockNumberAtDate = await getBlockNumberForDate('2021-03-25')
   }, [])
 
   return (
