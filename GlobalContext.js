@@ -5,18 +5,17 @@ export const CRAWLER_TAB = 'CRAWLER_TAB'
 export const BALANCE_TAB = 'BALANCE_TAB'
 
 const ContextProvider = ({ children }) => {
-  const START_BLOCK = 0
+  const START_BLOCK = 12390294
   const END_BLOCK = 99999999
   const [transactionData, setTransactionData] = useState([])
   const [ethBalance, setEthBalance] = useState('')
   const [tokenInfo, setTokenInfo] = useState({ balance: '', symbol: '' })
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState(CRAWLER_TAB)
-  const [walletAddress, setWalletAddress] = useState(
-    '0x424FC8c1a37D386Ff49D6F886A946ABA0a76f8b2'
-  )
+  const [walletAddress, setWalletAddress] = useState('')
   const [startBlock, setStartBlock] = useState(START_BLOCK)
   const [endBlock, setEndBlock] = useState(END_BLOCK)
+  const [errorMessage, setErrorMessage] = useState('')
   const api_key = process.env.REACT_APP_API_KEY
   const currentBlockUrl = `https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=${api_key}`
 
@@ -71,6 +70,8 @@ const ContextProvider = ({ children }) => {
         setWalletAddress,
         queryTransactions,
         ethBalance,
+        errorMessage,
+        setErrorMessage,
         setEthBalance,
         tokenInfo,
         setTokenInfo,

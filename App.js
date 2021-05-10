@@ -18,8 +18,14 @@ const Tab = styled.div`
   font-weight: 700;
 `
 
+const ErrorMessageContainer = styled.div`
+  color: red;
+  font-weight: 700;
+  font-size: 28px;
+`
+
 const App = () => {
-  const { activeTab, setActiveTab } = useContext(Context)
+  const { activeTab, setActiveTab, errorMessage } = useContext(Context)
   const isCrawlerTab = activeTab === CRAWLER_TAB
 
   return (
@@ -34,6 +40,8 @@ const App = () => {
       </TabWrapper>
 
       {isCrawlerTab ? <TransactionTable /> : <BalanceTable />}
+
+      <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
     </div>
   )
 }

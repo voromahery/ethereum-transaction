@@ -25,8 +25,11 @@ const TransactionTable = () => {
     isLoading,
     walletAddress,
     startBlock,
+    errorMessage,
+    setErrorMessage,
     endBlock,
   } = useContext(Context)
+
   return (
     <div>
       <TransactionCrawlerInput />
@@ -35,8 +38,8 @@ const TransactionTable = () => {
           Displaying result for address {walletAddress}, block range:{' '}
           {startBlock}
           &nbsp;-&nbsp;
-          {endBlock},&nbsp;number of transaction found:
-          {transactionData.length - 1}
+          {endBlock},&nbsp;number of transaction found: &nbsp;
+          {transactionData.length}
         </div>
       )}
       <div>
