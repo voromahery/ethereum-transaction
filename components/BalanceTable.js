@@ -3,6 +3,7 @@ import Web3 from 'web3'
 import styled from 'styled-components'
 import { Context } from '../GlobalContext'
 import BalanceSearchInput from './BalanceSearchInput'
+import LoadingIndicator from './LoadingIndicator'
 import {
   getCurrentBlockNumber,
   getBlockNumberForDate,
@@ -24,7 +25,7 @@ const BalanceTable = () => {
     <div>
       <BalanceSearchInput />
       {isLoading ? (
-        <h3>Loading...</h3>
+        <LoadingIndicator />
       ) : (
         <div>
           <div>balance: {Web3.utils.fromWei(ethBalance)} Eth</div>

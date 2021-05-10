@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Context } from '../GlobalContext'
+import LoadingIndicator from './LoadingIndicator'
 import TransactionCrawlerInput from './TransactionCrawlerInput'
 
 const Row = styled.div`
@@ -40,7 +41,7 @@ const TransactionTable = () => {
       )}
       <div>
         {isLoading ? (
-          <h1>Loading...</h1>
+          <LoadingIndicator />
         ) : (
           transactionData.map((item, index) => {
             const price = item.value * 0.000000000000000001

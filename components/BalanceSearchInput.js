@@ -39,9 +39,6 @@ const BalanceSearchInput = () => {
   } = useContext(Context)
 
   const [dateTextValue, setDateTextValue] = useState('2021-05-08')
-  const [address, setAddress] = useState(
-    '0x424FC8c1a37D386Ff49D6F886A946ABA0a76f8b2'
-  )
   const [tokenContract, setTokenContract] = useState(
     '0xdAC17F958D2ee523a2206206994597C13D831ec7'
   )
@@ -56,7 +53,7 @@ const BalanceSearchInput = () => {
     console.log(blockNumberForDate, 'BLOCK NUMBER')
 
     const ethBalanceAtBlock = await getEthBalanceAtBlock(
-      address,
+      walletAddress,
       blockNumberForDate
     )
 
@@ -97,7 +94,7 @@ const BalanceSearchInput = () => {
       </InputWrapper>
 
       <InputWrapper>
-        Token Contract
+        Token Contract (optional)
         <input
           type='text'
           value={tokenContract}
