@@ -12,22 +12,22 @@
 
   _Please check .env-example_
 
-This application should be available on http://localhost:1234
+This application should be available on localhost:1234
 
 ## How does this application work?
 
 Application has two sections:
 
-## Transaction crawler
+### Transaction crawler
 
-### This section is using the Etherscan.io API only
+#### This section is using the Etherscan.io API only
 
 All transactions for the given address and with specific start block are displayed here after clicking the **Get transaction** button.
 Etherscan has limit of 10,000 requestable transactions, to deal with that, I use pagination, so the app is displaying max 1000 transaction per page.
 
-## Balance checker
+### Balance checker
 
-### This section is using the Web3 library only
+#### This section is using the Web3 library only
 
 ### It requires an Ethereum-enabled browser, for example Chrome with MetaMask Wallet installed and set up https://metamask.io/
 
