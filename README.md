@@ -2,7 +2,7 @@
 
 ## How do I launch this application?
 
-#### Run the command below:
+#### Run the commands below:
 
 - ` yarn install`
 
