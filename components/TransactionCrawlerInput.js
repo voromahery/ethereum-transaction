@@ -50,7 +50,7 @@ const TransactionCrawlerInput = () => {
           type='text'
           value={walletAddress}
           placeholder='Search a wallet address'
-          onChange={(e) => setWalletAddress(e.target.value)}
+          onChange={(e) => setWalletAddress(e.target.value.trim())}
         />
       </InputWrapper>
 
