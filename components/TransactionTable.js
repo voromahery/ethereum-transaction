@@ -35,6 +35,18 @@ const PaginationButton = styled.div`
   border-radius: 6px;
 `
 
+const ResultInfo = styled.div`
+  margintop: '20px';
+  marginbottom: '20px';
+`
+const BlockHashWrapper = styled.div`
+  minwidth: '530px';
+`
+const PriceWrapper = styled.div`
+  textalign: 'right';
+  width: '100%';
+`
+
 const TransactionTable = () => {
   const {
     transactionData,
@@ -61,7 +73,7 @@ const TransactionTable = () => {
     <div>
       <TransactionCrawlerInput />
       {Boolean(!isLoading && transactionData.length) && (
-        <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+        <ResultInfo>
           Displaying result for address {walletAddress}, block range:
           {startBlock}
           &nbsp;-&nbsp;
@@ -78,7 +90,7 @@ const TransactionTable = () => {
               </PaginationButton>
             )}
           </PaginationWrapper>
-        </div>
+        </ResultInfo>
       )}
       <div>
         {isLoading ? (
@@ -94,7 +106,7 @@ const TransactionTable = () => {
             return (
               <Row key={item.timeStamp + index}>
                 <TransactionIcon>Tx</TransactionIcon>
-                <div style={{ minWidth: '530px' }}>
+                <BlockHashWrapper>
                   <p>
                     <a href={`https://etherscan.io/tx/${item.blockHash}`}>
                       {item.hash}
@@ -103,7 +115,7 @@ const TransactionTable = () => {
                   <div>
                     timestamp: {item.timeStamp}, {timeStampDate}
                   </div>
-                </div>
+                </BlockHashWrapper>
                 <div>
                   <p>
                     From:&nbsp;
@@ -118,9 +130,9 @@ const TransactionTable = () => {
                     </a>
                   </p>
                 </div>
-                <div style={{ textAlign: 'right', width: '100%' }}>
+                <PriceWrapper>
                   <span>{price}</span> <span>Eth</span>
-                </div>
+                </PriceWrapper>
               </Row>
             )
           })
