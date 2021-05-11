@@ -20,16 +20,16 @@ Application has two sections:
 
 ## Transaction crawler
 
-### This section is using Etherscan.io API only
+### This section is using the Etherscan.io API only
 
-All transactions in the given address and with specific start block is displayed here after clicking the **Get transaction** button.
-Etherscan has limit of 10,000 so, the app is displaying max 1000 transaction with pagination.
+All transactions for the given address and with specific start block are displayed here after clicking the **Get transaction** button.
+Etherscan has limit of 10,000 requestable transactions, to deal with that, I use pagination, so the app is displaying max 1000 transaction per page.
 
 ## Balance checker
 
-### This section is using Web3 library only
+### This section is using the Web3 library only
 
-### It requires Ethereum enabled browser for example Chrome with MetaMask Wallet installed https://metamask.io/
+### It requires an Ethereum-enabled browser, for example Chrome with MetaMask Wallet installed and set up https://metamask.io/
 
 It can find balance at a given address for Eth at a given time.
 
