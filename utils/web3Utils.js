@@ -88,6 +88,7 @@ export const getCurrentBlockNumber = async () => {
 }
 
 // Expected date format YYYY-MM-DD
+// Get the block number at a given time
 export const getBlockNumberForDate = async (date) => {
   const dateAtMidnight = date + 'T00:00:00Z'
   const blockAtDate = await getDater().getDate(dateAtMidnight, true)
@@ -105,10 +106,13 @@ export const getTokenInformation = async (
   blockNumber,
   tokenContractAddress
 ) => {
+  // Reuse instance of Web3 and stored in const for the readibility
   const web3 = getWeb3()
+
+  // To avoid user mistakes, the input value is trimmed
   const trimmedTokenContractAddress = tokenContractAddress.trim()
   const trimmedWalletTokenAddress = walletTokenAddress.trim()
-  var MyContract = await new web3.eth.Contract(
+  var MyTokenContract = await new web3.eth.Contract(
     contractStandardAbi,
     trimmedTokenContractAddress,
     {
@@ -116,21 +120,21 @@ export const getTokenInformation = async (
     }
   )
 
-  const tokenSymbol = await MyContract.methods
+  const tokenSymbol = await MyTokenContract.methods
     .symbol()
     .call()
     .then(function (result) {
       return result
     })
 
-  const decimals = await MyContract.methods
+  const decimals = await MyTokenContract.methods
     .decimals()
     .call()
     .then(function (result) {
       return result
     })
 
-  const tokenBalance = await MyContract.methods
+  const tokenBalance = await MyTokenContract.methods
     .balanceOf(trimmedWalletTokenAddress)
     .call(undefined, blockNumber)
     .then(function (result) {

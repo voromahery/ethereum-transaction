@@ -47,6 +47,7 @@ const ContextProvider = ({ children }) => {
     return data.result
   }
 
+  // Fetching current block number
   const fetchCurrentBlock = async () => {
     const response = await fetch(currentBlockUrl)
     const data = await response.json()
