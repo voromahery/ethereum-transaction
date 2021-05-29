@@ -8,9 +8,16 @@ const TabWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 408px;
+  @media (min-width: 375px) {
+    flex-wrap: nowrap;
+  }
 `
 
 const Tab = styled.div`
+  width: 100%;
   cursor: pointer;
   padding: 16px;
   background-color: ${(props) => (props.active ? 'lightblue' : 'lightgrey')};
@@ -21,7 +28,11 @@ const Tab = styled.div`
 const ErrorMessageContainer = styled.div`
   color: red;
   font-weight: 700;
-  font-size: 28px;
+  font-size: 18px;
+  word-wrap: break-word;
+  @media (min-width: 650px) {
+    font-size: 28px;
+  }
 `
 
 const App = () => {

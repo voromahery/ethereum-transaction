@@ -9,9 +9,10 @@ body {
     font-family: 'Roboto', Sans-Serif;
 }
 
+
 #root {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 a {
@@ -26,13 +27,16 @@ a:hover {
 input {
     width: 100%;
     max-width: 400px;
-    height: 50px;
+    height: 32px;
     border-radius: 6px;
+    border: solid 1px black;
 }
 
 button {
-    padding: 10px;
+    padding: 8px;
     cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 20px;
 }
 
 @keyframes spinner {
@@ -48,9 +52,25 @@ button {
     min-width: 40px;
     min-height: 40px;
     border: 5px solid rgba(255, 255, 255, 0.1);
-    border-right: 5px solid orange;
+    border-right: 5px solid lightblue;
     border-radius: 50%;
     animation: spinner 1s linear infinite;
   }
+
+@media (min-width: 375px) {
+    #root {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    input {
+        height: 50px;
+        border: solid 2px black;
+    }
+
+    button {
+        padding: 17px;
+    }
+}
 
 `

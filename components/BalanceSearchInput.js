@@ -22,6 +22,7 @@ const GetTransactionButton = styled.button`
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-wrap: anywhere;
 `
 
 const BalanceSearchInput = () => {

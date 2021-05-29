@@ -13,6 +13,11 @@ const Row = styled.div`
   margin-bottom: 10px;
   padding-right: 10px;
 `
+const TransactionOrigin = styled.div`
+  width: 100%;
+  max-width: max-content;
+  margin-right: auto;
+`
 
 const TransactionIcon = styled.div`
   background-color: dodgerblue;
@@ -43,8 +48,9 @@ const BlockHashWrapper = styled.div`
   minwidth: '530px';
 `
 const PriceWrapper = styled.div`
-  textalign: 'right';
-  width: '100%';
+  width: 100%;
+  max-width: max-content;
+  margin-left: auto;
 `
 
 const TransactionTable = () => {
@@ -58,6 +64,8 @@ const TransactionTable = () => {
     setCurrentPage,
     endBlock,
   } = useContext(Context)
+
+  const etherscanQuery = 'https://etherscan.io'
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1)
@@ -108,7 +116,7 @@ const TransactionTable = () => {
                 <TransactionIcon>Tx</TransactionIcon>
                 <BlockHashWrapper>
                   <p>
-                    <a href={`https://etherscan.io/tx/${item.blockHash}`}>
+                    <a href={`${etherscanQuery}/tx/${item.blockHash}`}>
                       {item.hash}
                     </a>
                   </p>
@@ -116,20 +124,20 @@ const TransactionTable = () => {
                     timestamp: {item.timeStamp}, {timeStampDate}
                   </div>
                 </BlockHashWrapper>
-                <div>
+                <TransactionOrigin>
                   <p>
                     From:&nbsp;
-                    <a href={`https://etherscan.io/address/${item.from}`}>
+                    <a href={`${etherscanQuery}/address/${item.from}`}>
                       {item.from}
                     </a>
                   </p>
                   <p>
                     To:&nbsp;
-                    <a href={`https://etherscan.io/address/${item.to}`}>
+                    <a href={`${etherscanQuery}/address/${item.to}`}>
                       {item.to}
                     </a>
                   </p>
-                </div>
+                </TransactionOrigin>
                 <PriceWrapper>
                   <span>{price}</span> <span>Eth</span>
                 </PriceWrapper>
