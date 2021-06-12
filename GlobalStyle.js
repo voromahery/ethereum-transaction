@@ -16,8 +16,8 @@ body {
 }
 
 a {
-    text-decoration: none;
-    word-wrap: break-word;   
+    text-decoration: none; 
+    
 }
 
 a:hover {
@@ -56,6 +56,11 @@ button {
     border-radius: 50%;
     animation: spinner 1s linear infinite;
   }
+
+.detail {
+    max-width: max-content;
+    margin: 0;
+}
 
 @media (min-width: 375px) {
     #root {

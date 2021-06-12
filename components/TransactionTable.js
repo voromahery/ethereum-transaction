@@ -6,17 +6,31 @@ import TransactionCrawlerInput from './TransactionCrawlerInput'
 
 const Row = styled.div`
   display: flex;
-  background-color: #e7eaf3;
-  align-items: center;
+  flex-direction: column;
   gap: 20px;
   border-radius: 5px;
   margin-bottom: 10px;
-  padding-right: 10px;
+  padding-bottom: 10px;
+  background-color: #e7eaf3;
+  @media (min-width: 600px) {
+    flex-direction: row;
+    align-items: center;
+    padding-right: 10px;
+    padding-bottom: 0;
+  }
 `
 const TransactionOrigin = styled.div`
   width: 100%;
   max-width: max-content;
   margin-right: auto;
+  padding: 0 10px 0 10px;
+  @media (min-width: 600px) {
+    padding: 0;
+    max-width: 30%;
+  }
+  @media (min-width: 900px) {
+    max-width: 100%;
+  }
 `
 
 const TransactionIcon = styled.div`
@@ -43,14 +57,33 @@ const PaginationButton = styled.div`
 const ResultInfo = styled.div`
   margintop: '20px';
   marginbottom: '20px';
+  overflow-wrap: break-word;
 `
 const BlockHashWrapper = styled.div`
   minwidth: '530px';
+  padding: 0 10px 0 10px;
+  @media (min-width: 600px) {
+    padding: 0;
+    max-width: 30%;
+  }
+  @media (min-width: 900px) {
+    max-width: 100%;
+  }
 `
 const PriceWrapper = styled.div`
   width: 100%;
-  max-width: max-content;
-  margin-left: auto;
+  padding: 0 10px 0 10px;
+  @media (min-width: 600px) {
+    max-width: max-content;
+    margin-left: auto;
+    padding: 0;
+  }
+`
+const LinkWrapper = styled.p`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 233px;
 `
 
 const TransactionTable = () => {
@@ -115,28 +148,34 @@ const TransactionTable = () => {
               <Row key={item.timeStamp + index}>
                 <TransactionIcon>Tx</TransactionIcon>
                 <BlockHashWrapper>
-                  <p>
-                    <a href={`${etherscanQuery}/tx/${item.blockHash}`}>
+                  <LinkWrapper>
+                    <a
+                      className='detail'
+                      href={`${etherscanQuery}/tx/${item.blockHash}`}>
                       {item.hash}
                     </a>
-                  </p>
-                  <div>
+                  </LinkWrapper>
+                  <div className='detail'>
                     timestamp: {item.timeStamp}, {timeStampDate}
                   </div>
                 </BlockHashWrapper>
                 <TransactionOrigin>
-                  <p>
+                  <LinkWrapper>
                     From:&nbsp;
-                    <a href={`${etherscanQuery}/address/${item.from}`}>
+                    <a
+                      className='detail'
+                      href={`${etherscanQuery}/address/${item.from}`}>
                       {item.from}
                     </a>
-                  </p>
-                  <p>
+                  </LinkWrapper>
+                  <LinkWrapper>
                     To:&nbsp;
-                    <a href={`${etherscanQuery}/address/${item.to}`}>
+                    <a
+                      className='detail'
+                      href={`${etherscanQuery}/address/${item.to}`}>
                       {item.to}
                     </a>
-                  </p>
+                  </LinkWrapper>
                 </TransactionOrigin>
                 <PriceWrapper>
                   <span>{price}</span> <span>Eth</span>
