@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Context, FIRST_PAGE } from '../GlobalContext'
 
@@ -25,7 +25,6 @@ const TransactionCrawlerInput = () => {
     startBlock,
     setStartBlock,
     queryTransactions,
-    errorMessage,
     setCurrentPage,
     setErrorMessage,
   } = useContext(Context)
