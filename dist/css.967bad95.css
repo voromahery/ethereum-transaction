@@ -31,6 +31,33 @@ button {
   max-width: max-content;
   margin: 0; }
 
+.error_message_container {
+  color: red;
+  font-weight: 700;
+  font-size: 18px;
+  word-wrap: break-word; }
+
+.tab_wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 408px; }
+
+.tab {
+  width: 100%;
+  cursor: pointer;
+  padding: 16px;
+  color: black;
+  font-weight: 700; }
+
+.active {
+  background-color: lightblue; }
+
+.not_active {
+  background-color: lightgrey; }
+
 @media (min-width: 375px) {
   #root {
     padding-left: 40px;
@@ -39,7 +66,13 @@ button {
     height: 50px;
     border: solid 2px black; }
   button {
-    padding: 17px; } }
+    padding: 17px; }
+  .tab_wrapper {
+    flex-wrap: nowrap; } }
+
+@media (min-width: 650px) {
+  .error_message_container {
+    font-size: 28px; } }
 
 .balance_search_container {
   display: flex;

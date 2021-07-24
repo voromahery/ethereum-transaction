@@ -2,38 +2,6 @@ import React, { useContext } from 'react'
 import TransactionTable from './components/TransactionTable'
 import { BALANCE_TAB, Context, CRAWLER_TAB } from './GlobalContext'
 import BalanceTable from './components/BalanceTable'
-import styled from 'styled-components'
-
-const TabWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  width: 100%;
-  max-width: 408px;
-  @media (min-width: 375px) {
-    flex-wrap: nowrap;
-  }
-`
-
-const Tab = styled.div`
-  width: 100%;
-  cursor: pointer;
-  padding: 16px;
-  background-color: ${(props) => (props.active ? 'lightblue' : 'lightgrey')};
-  color: black;
-  font-weight: 700;
-`
-
-const ErrorMessageContainer = styled.div`
-  color: red;
-  font-weight: 700;
-  font-size: 18px;
-  word-wrap: break-word;
-  @media (min-width: 650px) {
-    font-size: 28px;
-  }
-`
 
 const App = () => {
   const { activeTab, setActiveTab, errorMessage } = useContext(Context)
@@ -41,18 +9,22 @@ const App = () => {
 
   return (
     <div>
-      <TabWrapper>
-        <Tab active={isCrawlerTab} onClick={() => setActiveTab(CRAWLER_TAB)}>
+      <div className='tab_wrapper'>
+        <div
+          className={isCrawlerTab ? 'active tab' : 'not_active tab'}
+          onClick={() => setActiveTab(CRAWLER_TAB)}>
           Transactions crawler
-        </Tab>
-        <Tab active={!isCrawlerTab} onClick={() => setActiveTab(BALANCE_TAB)}>
+        </div>
+        <div
+          className={isCrawlerTab ? 'not_active tab' : 'active tab'}
+          onClick={() => setActiveTab(BALANCE_TAB)}>
           Balance checker
-        </Tab>
-      </TabWrapper>
+        </div>
+      </div>
 
       {isCrawlerTab ? <TransactionTable /> : <BalanceTable />}
 
-      <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
+      <div className='error_message_container'>{errorMessage}</div>
     </div>
   )
 }
