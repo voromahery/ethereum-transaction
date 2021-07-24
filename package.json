@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "scss": "node-sass scss -o css",
+    "scss:watch": "npm run scss && node-sass scss -w -o css"
   },
   "dependencies": {
     "dotenv": "^9.0.0",
     "ethereum-block-by-date": "^1.3.2",
+    "node-sass": "^5.0.0",
     "parcel-bundler": "^1.12.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

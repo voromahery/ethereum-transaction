@@ -1,90 +1,7 @@
 import React, { useContext } from 'react'
-import styled from 'styled-components'
 import { Context, FIRST_PAGE, RESULTS_PER_PAGE } from '../GlobalContext'
 import LoadingIndicator from './LoadingIndicator'
 import TransactionCrawlerInput from './TransactionCrawlerInput'
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  background-color: #e7eaf3;
-  @media (min-width: 600px) {
-    flex-direction: row;
-    align-items: center;
-    padding-right: 10px;
-    padding-bottom: 0;
-  }
-`
-const TransactionOrigin = styled.div`
-  width: 100%;
-  max-width: max-content;
-  margin-right: auto;
-  padding: 0 10px 0 10px;
-  @media (min-width: 600px) {
-    padding: 0;
-    max-width: 30%;
-  }
-  @media (min-width: 900px) {
-    max-width: 100%;
-  }
-`
-
-const TransactionIcon = styled.div`
-  background-color: dodgerblue;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  padding: 40px;
-`
-
-const PaginationWrapper = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`
-const PaginationButton = styled.div`
-  padding: 10px;
-  cursor: pointer;
-  border: 1px solid black;
-  border-radius: 6px;
-`
-
-const ResultInfo = styled.div`
-  margintop: '20px';
-  marginbottom: '20px';
-  overflow-wrap: break-word;
-`
-const BlockHashWrapper = styled.div`
-  minwidth: '530px';
-  padding: 0 10px 0 10px;
-  @media (min-width: 600px) {
-    padding: 0;
-    max-width: 30%;
-  }
-  @media (min-width: 900px) {
-    max-width: 100%;
-  }
-`
-const PriceWrapper = styled.div`
-  width: 100%;
-  padding: 0 10px 0 10px;
-  @media (min-width: 600px) {
-    max-width: max-content;
-    margin-left: auto;
-    padding: 0;
-  }
-`
-const LinkWrapper = styled.p`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 233px;
-`
 
 const TransactionTable = () => {
   const {
@@ -114,24 +31,24 @@ const TransactionTable = () => {
     <div>
       <TransactionCrawlerInput />
       {Boolean(!isLoading && transactionData.length) && (
-        <ResultInfo>
+        <div className='result_info'>
           Displaying result for address {walletAddress}, block range:
           {startBlock}
           &nbsp;-&nbsp;
           {endBlock}.
-          <PaginationWrapper>
+          <div className='pagination_wrapper'>
             {currentPage > FIRST_PAGE && (
-              <PaginationButton onClick={previousPage}>
+              <button className='pagination_button' onClick={previousPage}>
                 {'<< Previous page'}
-              </PaginationButton>
+              </button>
             )}
             {transactionData.length >= RESULTS_PER_PAGE && (
-              <PaginationButton onClick={nextPage}>
+              <button className='pagination_button' onClick={nextPage}>
                 {'Next page >>'}
-              </PaginationButton>
+              </button>
             )}
-          </PaginationWrapper>
-        </ResultInfo>
+          </div>
+        </div>
       )}
       <div>
         {isLoading ? (
@@ -145,42 +62,42 @@ const TransactionTable = () => {
             ).toISOString()
 
             return (
-              <Row key={item.timeStamp + index}>
-                <TransactionIcon>Tx</TransactionIcon>
-                <BlockHashWrapper>
-                  <LinkWrapper>
+              <div className='row' key={item.timeStamp + index}>
+                <div className='transaction_icon'>Tx</div>
+                <div className='block_hash_wrapper'>
+                  <p className='link_wrapper'>
                     <a
                       className='detail'
                       href={`${etherscanQuery}/tx/${item.blockHash}`}>
                       {item.hash}
                     </a>
-                  </LinkWrapper>
+                  </p>
                   <div className='detail'>
                     timestamp: {item.timeStamp}, {timeStampDate}
                   </div>
-                </BlockHashWrapper>
-                <TransactionOrigin>
-                  <LinkWrapper>
+                </div>
+                <div className='transaction_origin'>
+                  <p className='link_wrapper'>
                     From:&nbsp;
                     <a
                       className='detail'
                       href={`${etherscanQuery}/address/${item.from}`}>
                       {item.from}
                     </a>
-                  </LinkWrapper>
-                  <LinkWrapper>
+                  </p>
+                  <p className='link_wrapper'>
                     To:&nbsp;
                     <a
                       className='detail'
                       href={`${etherscanQuery}/address/${item.to}`}>
                       {item.to}
                     </a>
-                  </LinkWrapper>
-                </TransactionOrigin>
-                <PriceWrapper>
+                  </p>
+                </div>
+                <div className='price_wrapper'>
                   <span>{price}</span> <span>Eth</span>
-                </PriceWrapper>
-              </Row>
+                </div>
+              </div>
             )
           })
         )}

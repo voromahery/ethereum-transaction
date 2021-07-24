@@ -1,22 +1,5 @@
 import React, { useContext } from 'react'
-import styled from 'styled-components'
 import { Context, FIRST_PAGE } from '../GlobalContext'
-
-const Form = styled.div`
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-  justify-content: space-between;
-`
-
-const GetTransactionButton = styled.button`
-  max-width: max-content;
-`
-
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`
 
 const TransactionCrawlerInput = () => {
   const {
@@ -29,7 +12,8 @@ const TransactionCrawlerInput = () => {
     setErrorMessage,
   } = useContext(Context)
 
-  const getQuery = () => {
+  const getQuery = (e) => {
+    e.preventDefault()
     setCurrentPage(FIRST_PAGE)
     if (walletAddress && startBlock) {
       setErrorMessage('')
@@ -42,8 +26,8 @@ const TransactionCrawlerInput = () => {
   }
 
   return (
-    <Form>
-      <InputWrapper>
+    <form className='transaction_crawler' onSubmit={getQuery}>
+      <div className='input_wrapper'>
         Address*
         <input
           type='text'
@@ -51,9 +35,9 @@ const TransactionCrawlerInput = () => {
           placeholder='Search a wallet address'
           onChange={(e) => setWalletAddress(e.target.value.trim())}
         />
-      </InputWrapper>
+      </div>
 
-      <InputWrapper>
+      <div className='input_wrapper'>
         Start block*
         <input
           type='text'
@@ -61,11 +45,9 @@ const TransactionCrawlerInput = () => {
           placeholder='Start block'
           onChange={(e) => setStartBlock(e.target.value)}
         />
-      </InputWrapper>
-      <GetTransactionButton onClick={getQuery}>
-        Get transactions
-      </GetTransactionButton>
-    </Form>
+      </div>
+      <button className='transaction_button'>Get transactions</button>
+    </form>
   )
 }
 

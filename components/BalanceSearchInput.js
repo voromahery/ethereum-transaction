@@ -1,29 +1,11 @@
 import React, { useContext, useState } from 'react'
 import MaskedInput from 'react-maskedinput'
-import styled from 'styled-components'
 import { Context } from '../GlobalContext'
 import {
   getBlockNumberForDate,
   getEthBalanceAtBlock,
   getTokenInformation,
 } from '../utils/web3Utils'
-
-const Form = styled.div`
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-  justify-content: space-between;
-`
-
-const GetTransactionButton = styled.button`
-  max-width: max-content;
-`
-
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow-wrap: anywhere;
-`
 
 const BalanceSearchInput = () => {
   const {
@@ -73,8 +55,8 @@ const BalanceSearchInput = () => {
   }
 
   return (
-    <Form>
-      <InputWrapper>
+    <div className='balance_search_container'>
+      <div className='input_wrapper'>
         Date
         <MaskedInput
           mask='1111-11-11'
@@ -83,8 +65,8 @@ const BalanceSearchInput = () => {
           size='10'
           onChange={(e) => setDateTextValue(e.target.value)}
         />
-      </InputWrapper>
-      <InputWrapper>
+      </div>
+      <div className='input_wrapper'>
         Address
         <input
           type='text'
@@ -92,9 +74,9 @@ const BalanceSearchInput = () => {
           placeholder='Wallet address'
           onChange={(e) => setWalletAddress(e.target.value)}
         />
-      </InputWrapper>
+      </div>
 
-      <InputWrapper>
+      <div className='input_wrapper'>
         Token Contract (optional) eg: 0xdAC17F958D2ee523a2206206994597C13D831ec7
         [USDT]
         <input
@@ -103,11 +85,11 @@ const BalanceSearchInput = () => {
           placeholder='Token contract'
           onChange={(e) => setTokenContract(e.target.value)}
         />
-      </InputWrapper>
-      <GetTransactionButton onClick={getQuery}>
+      </div>
+      <button className='transaction_button' onClick={getQuery}>
         Get balance
-      </GetTransactionButton>
-    </Form>
+      </button>
+    </div>
   )
 }
 
