@@ -1,7 +1,5 @@
 .transaction_crawler {
-  display: flex;
   gap: 20px;
-  flex-direction: column;
   justify-content: space-between;
 }
 
@@ -9,9 +7,16 @@
   max-width: max-content;
 }
 
-.transaction_crawler > .input_wrapper {
-  display: flex;
+.transaction_crawler,
+.transaction_crawler > .input_wrapper,
+.row {
   flex-direction: column;
+}
+.transaction_crawler,
+.transaction_crawler > .input_wrapper,
+.row,
+.price_wrapper {
+  display: flex;
 }
 
 .result_info {
@@ -21,8 +26,6 @@
 }
 
 .row {
-  display: flex;
-  flex-direction: column;
   gap: 20px;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -49,7 +52,6 @@
 }
 
 .pagination_wrapper {
-  display: flex;
   gap: 10px;
   align-items: center;
   margin-top: 10px;
@@ -65,7 +67,6 @@
 
 .pagination_button {
   padding: 10px;
-  cursor: pointer;
   border: 1px solid black;
   border-radius: 6px;
 }
@@ -85,10 +86,8 @@
     margin-left: auto;
     padding: 0;
   }
-  .transaction_origin {
-    padding: 0;
-    max-width: 30%;
-  }
+
+  .transaction_origin,
   .block_hash_wrapper {
     padding: 0;
     max-width: 30%;
@@ -96,9 +95,7 @@
 }
 
 @media (min-width: 900px) {
-  .transaction_origin {
-    max-width: 100%;
-  }
+  .transaction_origin,
   .block_hash_wrapper {
     max-width: 100%;
   }

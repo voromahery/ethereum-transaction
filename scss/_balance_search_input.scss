@@ -1,7 +1,11 @@
+.balance_search_container .input_wrapper,
 .balance_search_container {
   display: flex;
-  gap: 20px;
   flex-direction: column;
+}
+
+.balance_search_container {
+  gap: 20px;
   justify-content: space-between;
 }
 
@@ -10,8 +14,6 @@
 }
 
 .balance_search_container .input_wrapper {
-  display: flex;
-  flex-direction: column;
   overflow-wrap: anywhere;
 }
 
