@@ -2,7 +2,7 @@ body {
   margin: auto; }
 
 * {
-  font-family: 'Roboto', Sans-Serif; }
+  font-family: 'Roboto', Arial, Helvetica, sans-serif; }
 
 #root {
   padding-left: 20px;
@@ -15,7 +15,6 @@ a:hover {
   text-decoration: underline; }
 
 input {
-  width: 100%;
   max-width: 400px;
   height: 32px;
   border-radius: 6px;
@@ -23,9 +22,21 @@ input {
 
 button {
   padding: 8px;
-  cursor: pointer;
-  font-weight: 700;
   margin-bottom: 20px; }
+
+input,
+.tab,
+.tab_wrapper {
+  width: 100%; }
+
+button,
+.tab {
+  cursor: pointer; }
+
+.error_message_container,
+button,
+.tab {
+  font-weight: 700; }
 
 .detail {
   max-width: max-content;
@@ -33,7 +44,6 @@ button {
 
 .error_message_container {
   color: red;
-  font-weight: 700;
   font-size: 18px;
   word-wrap: break-word; }
 
@@ -46,11 +56,8 @@ button {
   max-width: 408px; }
 
 .tab {
-  width: 100%;
-  cursor: pointer;
   padding: 16px;
-  color: black;
-  font-weight: 700; }
+  color: black; }
 
 .active {
   background-color: lightblue; }
@@ -74,18 +81,19 @@ button {
   .error_message_container {
     font-size: 28px; } }
 
+.balance_search_container .input_wrapper,
 .balance_search_container {
   display: flex;
+  flex-direction: column; }
+
+.balance_search_container {
   gap: 20px;
-  flex-direction: column;
   justify-content: space-between; }
 
 .balance_search_container .transaction_button {
   max-width: max-content; }
 
 .balance_search_container .input_wrapper {
-  display: flex;
-  flex-direction: column;
   overflow-wrap: anywhere; }
 
 .bold_text {
@@ -113,17 +121,22 @@ button {
   animation: spinner 1s linear infinite; }
 
 .transaction_crawler {
-  display: flex;
   gap: 20px;
-  flex-direction: column;
   justify-content: space-between; }
 
 .transaction_crawler > .transaction_button {
   max-width: max-content; }
 
-.transaction_crawler > .input_wrapper {
-  display: flex;
+.transaction_crawler,
+.transaction_crawler > .input_wrapper,
+.row {
   flex-direction: column; }
+
+.transaction_crawler,
+.transaction_crawler > .input_wrapper,
+.row,
+.price_wrapper {
+  display: flex; }
 
 .result_info {
   margin-top: '20px';
@@ -131,8 +144,6 @@ button {
   overflow-wrap: break-word; }
 
 .row {
-  display: flex;
-  flex-direction: column;
   gap: 20px;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -156,7 +167,6 @@ button {
   padding: 0 10px 0 10px; }
 
 .pagination_wrapper {
-  display: flex;
   gap: 10px;
   align-items: center;
   margin-top: 10px;
@@ -170,7 +180,6 @@ button {
 
 .pagination_button {
   padding: 10px;
-  cursor: pointer;
   border: 1px solid black;
   border-radius: 6px; }
 
@@ -188,16 +197,13 @@ button {
     max-width: max-content;
     margin-left: auto;
     padding: 0; }
-  .transaction_origin {
-    padding: 0;
-    max-width: 30%; }
+  .transaction_origin,
   .block_hash_wrapper {
     padding: 0;
     max-width: 30%; } }
 
 @media (min-width: 900px) {
-  .transaction_origin {
-    max-width: 100%; }
+  .transaction_origin,
   .block_hash_wrapper {
     max-width: 100%; } }
 

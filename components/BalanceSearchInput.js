@@ -56,36 +56,39 @@ const BalanceSearchInput = () => {
 
   return (
     <div className='balance_search_container'>
-      <div className='input_wrapper'>
+      <label htmlFor='date' className='input_wrapper'>
         Date
         <MaskedInput
           mask='1111-11-11'
+          id='date'
           name='date'
           value={dateTextValue}
           size='10'
           onChange={(e) => setDateTextValue(e.target.value)}
         />
-      </div>
-      <div className='input_wrapper'>
+      </label>
+      <label htmlFor='address' className='input_wrapper'>
         Address
         <input
           type='text'
+          id='address'
           value={walletAddress}
           placeholder='Wallet address'
           onChange={(e) => setWalletAddress(e.target.value)}
         />
-      </div>
+      </label>
 
-      <div className='input_wrapper'>
+      <label htmlFor='tokenContract' className='input_wrapper'>
         Token Contract (optional) eg: 0xdAC17F958D2ee523a2206206994597C13D831ec7
         [USDT]
         <input
           type='text'
+          id='tokenContract'
           value={tokenContract}
           placeholder='Token contract'
           onChange={(e) => setTokenContract(e.target.value)}
         />
-      </div>
+      </label>
       <button className='transaction_button' onClick={getQuery}>
         Get balance
       </button>

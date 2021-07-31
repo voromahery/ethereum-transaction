@@ -2,7 +2,7 @@ body {
   margin: auto; }
 
 * {
-  font-family: 'Roboto', Sans-Serif; }
+  font-family: 'Roboto', Arial, Helvetica, sans-serif; }
 
 #root {
   padding-left: 20px;

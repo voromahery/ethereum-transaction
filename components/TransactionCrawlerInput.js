@@ -27,25 +27,27 @@ const TransactionCrawlerInput = () => {
 
   return (
     <form className='transaction_crawler' onSubmit={getQuery}>
-      <div className='input_wrapper'>
+      <label className='input_wrapper' htmlFor='address'>
         Address*
         <input
           type='text'
+          id='address'
           value={walletAddress}
           placeholder='Search a wallet address'
           onChange={(e) => setWalletAddress(e.target.value.trim())}
         />
-      </div>
+      </label>
 
-      <div className='input_wrapper'>
+      <label htmlFor='startBlock' className='input_wrapper'>
         Start block*
         <input
           type='text'
+          id='startBlock'
           value={startBlock}
           placeholder='Start block'
           onChange={(e) => setStartBlock(e.target.value)}
         />
-      </div>
+      </label>
       <button className='transaction_button'>Get transactions</button>
     </form>
   )
