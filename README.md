@@ -1,6 +1,6 @@
 # Transaction app
 
-## How do I launch this application?
+## How to launch this application?
 
 #### Run the commands below:
 
