@@ -1,5 +1,7 @@
 # Transaction app
 
+![screenshot](./ethereum-transaction.webp)
+
 ## How to launch this application?
 
 #### Run the commands below:
